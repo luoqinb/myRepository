@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+        <!-- Style -->
+        <link rel="stylesheet" href="style.css">
+    <title>Worker system</title>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+            padding: 10px;
+        }
+        .nav-image {
+            width: 35px;
+            height: 35px;
+
+        }
+
+        /* 头部标题 */
+        .header {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        /* 导航条 */
+        .topnav {
+            overflow: hidden;
+
+        }
+
+        /* 导航条链接 */
+        .topnav a {
+            float: left;
+            display: block;
+            color: #181717;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            margin-right: 2%;
+        }
+
+        /* 创建两列 */
+        /* Left column */
+        .leftcolumn {
+            float: left;
+            width: 23%;
+            margin-top: 1%;
+        }
+
+        /* 右侧栏 */
+        .rightcolumn {
+            float: left;
+            width: 77%;
+            margin-top: 3%;
+            padding-left: 0px;
+        }
+
+        /* 链接颜色修改 */
+        .topnav a:hover {
+            transition: ease-in-out 0.25s;
+            background-color: #1c74df;
+            color: #ffffff;
+        }
+
+        /*页面布局*/
+        /* 创建三个相等的列 */
+        .column {
+            float: left;
+            width: 33.33%;
+        }
+        /* 列后清除浮动 */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /*块中行*/
+        .row-in-div {
+            float: none;
+            height: 80px;
+        }
+        /*输入框样式*/
+        .margin{
+            margin: 6px;
+            width: 70%;
+            height:35px;
+        }
+        .margin1{
+            margin: 6px;
+            width: 35%;
+            height:35px;
+        }
+
+    </style>
+
+    <script>
+        function() {
+            var amount = $("#id").val();
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="leftcolumn">
+    <div >
+    <h1>&nbsp <img src="user.svg" class="nav-image" >&nbsp Hi，name！</h1>
+    </div>
+</div>
+<div class="rightcolumn">
+<div class="topnav">
+    <a href="#" style="float:right">登出</a>
+    <a href="changePass.html" style="float:right">修改密码</a>
+    <a href="Salary.html" style="float:right">薪资</a>
+    <a href="Submit.html" style="float:right">提交情况</a>
+    <a href="Homepage.html" style="float:right">首页</a>
+</div>
+</div>
+<br><br><br><br><br>
+<div class="row">
+    <br>
+    <hr>
+</div>
+
+<div class="row">
+    <div class="column">&nbsp</div>
+    <div class="column">
+        <div class="row-in-div">&nbsp</div>
+
+        <form action="#">
+            <b>日期</b><br><input type="date" name="bday" class="margin"><br><br>
+            <b>货号</b><br><select class="margin1" id="productSelector">
+                      <option>500C</option>
+                      <option>6177</option>
+                      <option>458</option>
+                      <option>3683</option>
+                    </select>
+
+            <br><br>
+            <b>数量</b><br><input type="text" class="margin"><br><br>
+            <b>总金额: </b>15 (单价) * 20 (数量) = <span style="color: red" id="totalPrice">666</span>
+            <br><br>
+            <span>&nbsp &nbsp</span> <button type="submit" class=""><span>提交</span></button>
+        </form>
+    </div>
+</body>
+</html>

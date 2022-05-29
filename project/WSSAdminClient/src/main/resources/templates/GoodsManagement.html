@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>员工信息</title>
+    <link href="bootstrap.min.css" th:href="@{/static/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/static/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript">
+        function clearNoNum(obj) {
+            obj.value = obj.value.replace(/[^\d.]/g, ""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g, ""); //验证第一个字符是数字而不是字符
+            obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个.清除多余的
+            obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+        }
+
+        /**显示货物信息**/
+        function showPerson() {
+            //显示表格
+            // document.getElementById("table1").style = "margin: 1.25rem;";
+            document.getElementById("div1").style = "display: block";
+        }
+
+        /**显示新增物资信息**/
+        function showAddPerson() {
+            var div2 = document.getElementById("div2");
+            div2.style = "margin: 2.25rem;";
+        }
+
+        /**取消按钮，隐藏表单**/
+        function cancel() {
+            //隐藏新增人员信息界面
+            document.getElementById("div2").style = "display: none";
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#submitButton').click(function () {
+                var pid = $('#goods_name').val();
+                var price = $('#price').val();
+                var description = $('#supply').val();
+
+                console.log("Button clicked.");
+                console.log("pid: " + pid + ", price: " + price + ", des: " + description);
+
+                // if (pid === "" || price === "" || price === 0 || description === "")
+                if (!pid.trim() || !price.trim() || !description.trim() || price === 0) {
+                    alert("请输入正确的数据。");
+                } else {
+
+                    var isConfirm = confirm("请确认要添加的货品信息：\n\n货号：" + pid + "\n价格：" + price + "\n货源厂描述：" + description + "\n\n确定要提交吗？");
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/api/addProduct',
+                            method: 'post',
+                            data: {pid: pid, price: price, description: description},
+                            success: function (data) {
+                                if (data === "success") {
+                                    alert("添加成功。");
+                                    $('#goods_name').val("");
+                                    $('#price').val("");
+                                    $('#supply').val("");
+                                    window.location.reload();
+                                } else if (data === "duplicated") {
+                                    alert("此货号已存在，请重试。");
+                                } else {
+                                    alert("操作失败，请重试。");
+                                    window.location.reload();
+                                }
+                            },
+                            error: function (data) {
+                                alert("操作失败，请重试。");
+                            }
+                        });
+                    }
+
+
+                }
+
+            })
+        })
+        /**新增货品信息**/
+
+    </script>
+</head>
+<body>
+<div id="" style="margin: 1.25rem;">
+    <button type="button" class="btn btn-info" onclick="showPerson()"><span class="glyphicon glyphicon-qrcode"></span>
+        显示货品信息
+    </button>
+    <button type="button" class="btn btn-info" onclick="showAddPerson()"><span
+            class="glyphicon glyphicon-sound-stereo"></span> 新增货品信息
+    </button>
+</div>
+
+<!-- 表格信息 -->
+<div id="div1" style="margin: 1.25rem; display: none">
+    <center><h1 style="color: red" th:if="${#lists.isEmpty(productList)}">没有任何商品，请添加后重试。</h1></center>
+    <table border="1" class="table table-hover" style="margin: 1.25rem;" id="table1" cellspacing="2"
+           cellpadding="2"
+           th:if="${not #lists.isEmpty(productList)}">
+        <tr>
+            <th>编号</th>
+            <th>货名</th>
+            <th>单价</th>
+            <th>货源厂</th>
+        </tr>
+        <tr th:each="product: ${productList}">
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.getPid()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${product.getDescription()}"></td>
+        </tr>
+    </table>
+
+</div>
+<!-- 新增货物信息 -->
+<div id="div2" style="display: none;margin: 1.25rem;">
+    <fieldset id="field2">
+        <legend>新增货物信息</legend>
+        <table class="table table-hover">
+            <input type="hidden" class="form-control" name="id" id="uid"/>
+            <tr>
+                <td>货名:</td>
+                <td><input type="text" class="form-control" name="goods_name" id="goods_name"/></td>
+            </tr>
+            <tr>
+                <td>单价：</td>
+                <td><input type="text" class="form-control" name="price" id="price"
+                           onkeyup="clearNoNum(this)"/></td>
+            </tr>
+            <tr>
+                <td>货源厂：</td>
+                <td><input type="text" class="form-control" name="supply" id="supply"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-primary" id="submitButton">确定</button>
+                    <button type="button" class="btn btn-warning" onclick="cancel()" style="margin-left: 10px;">取消
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+</body>
+</html>

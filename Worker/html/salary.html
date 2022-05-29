@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>员工信息系统</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/index.css" rel="stylesheet">
+    <link href="../css/student.css" rel="stylesheet">
+    <style>
+        .column {
+            float: left;
+            width: 33.33%;
+        }
+
+        /* 列后清除浮动 */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .row-in-div {
+            float: none;
+            height: 80px;
+        }
+
+        .d1 tr {
+            height: 45px;
+        }
+    </style>
+
+    <script src="../css/jquery-1.8.3.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            var currentYear = new Date().getFullYear();
+            document.getElementById("year1").text = currentYear;
+            document.getElementById("year2").text = currentYear - 1;
+            document.getElementById("year3").text = currentYear - 2;
+            document.getElementById("year4").text = currentYear - 3;
+            document.getElementById("year5").text = currentYear - 4;
+            document.getElementById("year6").text = currentYear - 5;
+
+            var currentMonth = new Date().getMonth() + 1;
+            for (var i = 1; i <= currentMonth; i++) {
+                document.getElementById("month" + i).text = i;
+                document.getElementById("month" + i).hidden = false;
+            }
+
+        })
+    </script>
+
+</head>
+<body>
+
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
+                    data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Worker Salary System</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="base.html">首页</a></li>
+                <li><a href="submit.html">提交情况</a></li>
+                <li><a href="salary.html">薪资</a></li>
+                <li><a href="changepasswd.html">修改密码</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您，${currentUser.name}！</a></li>
+                <li><a href="#">【退出登录】</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<center>
+    <div style="margin-top: 70px">
+        <label>
+            请选择年月：<select name="year">
+            <option id="year1"></option>
+            <option id="year2"></option>
+            <option id="year3"></option>
+            <option id="year4"></option>
+            <option id="year5"></option>
+            <option id="year6"></option>
+        </select>
+
+            <select name="month">
+                <option hidden id="month1"></option>
+                <option hidden id="month2"></option>
+                <option hidden id="month3"></option>
+                <option hidden id="month4"></option>
+                <option hidden id="month5"></option>
+                <option hidden id="month6"></option>
+                <option hidden id="month7"></option>
+                <option hidden id="month8"></option>
+                <option hidden id="month9"></option>
+                <option hidden id="month10"></option>
+                <option hidden id="month11"></option>
+                <option hidden id="month12"></option>
+            </select>
+        </label>
+        &nbsp;&nbsp;
+        <input type="submit" value="搜索 🔍">
+
+    </div>
+</center>
+
+<center>
+    <div style="height: auto; width: min-content">
+        <!--        <div style="margin-top:30px;width: 60%;height: 80%;overflow:auto" class="d1">-->
+        <div class="d1" style="margin-top:30px;width: 900px;height: 550px;overflow: auto">
+            <table class="table table table-bordered">
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>货号</th>
+                    <th>数量</th>
+                    <th>提交状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+                <tr>
+                    <td>日期</td>
+                    <td>货号</td>
+                    <td>数量</td>
+                    <td>提交状态</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+            Copyright &copy Worker Salary System.
+        </p>
+    </div>
+</footer>
+</body>
+
+
+</html>

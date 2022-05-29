@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>员工信息系统</title>
+
+
+    <!-- 引入组件库 -->
+    <script src="../js/index.js" th:src="@{/static/base/js/index.js}"></script>
+    <script src="../js/vue.js" th:src="@{/static/base/js/vue.js}"></script>
+    <script src="../jquery.min.js" th:src="@{/static/base/js/jquery.min.js}" type="text/javascript"></script>
+
+    <link rel="stylesheet" th:href="@{/static/base/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/index.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/student.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/index1.css}">
+
+    <style>
+        .column {
+            float: left;
+            width: 33.3%;
+        }
+
+        /* 列后清除浮动 */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .row-in-div {
+            float: none;
+            height: 80px;
+        }
+
+        .d1 tr {
+            height: 45px;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
+                    data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Worker Salary System</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/home}" href="base.html">首页</a></li>
+                <li><a th:href="@{/submitStatus}" href="submit.html">提交情况</a></li>
+                <li><a th:href="@{/salary}" href="salary.html">薪资</a></li>
+                <li><a th:href="@{/changePassword}" href="changepasswd.html">修改密码</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您，<span th:text="${session.loginUser.username}"></span>！</a></li>
+                <li><a href="/logout">【退出登录】</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<!--内容-->
+    <center>
+        <div style="height: auto; width: min-content">
+            <center><h1 style="padding-top: 50px">提交情况</h1></center><br>
+        <div class="d1" style="margin-top: 40px;width: 900px;height: 550px;overflow: auto">
+
+            <!--    <div style="margin-top:80px;width: 60%;height: 80%;overflow: auto" class="d1">-->
+            <center><h1 th:if="${#lists.isEmpty(recordList)}" style="color: red">未找到数据，请提交后重试。</h1></center>
+            <table th:if="${not #lists.isEmpty(recordList)}" class="table table table-bordered">
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>货号</th>
+                    <th>数量</th>
+                    <th>提交状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="record: ${recordList}">
+                    <td th:text="${record.getDateTime()}"></td>
+                    <td th:text="${record.getProductId()}"></td>
+                    <td th:text="${record.getAmount()}"></td>
+                    <td th:if="${record.getStatus() == 1}" style="color: coral"><img alt="submitted" th:src="@{/static/base/img/submitted.svg}" height="15px" width="15px" />待审核</td>
+                    <td th:if="${record.getStatus() == 2}" style="color: green"><img alt="accepted" th:src="@{/static/base/img/accept.svg}" height="15px" width="15px"/>已通过</td>
+                    <td th:if="${record.getStatus() == 3}" style="color: red;"><img alt="refused" th:src="@{/static/base/img/refuse.svg}" height="15px" width="15px"/>未通过</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div></center>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+            Copyright &copy Worker Salary System.
+        </p>
+    </div>
+</footer>
+</body>
+
+
+</html>

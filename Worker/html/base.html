@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>员工信息系统</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/index.css" rel="stylesheet">
+    <link href="../css/student.css" rel="stylesheet">
+    <style>
+        .column {
+            float: left;
+            width: 35.33%;
+        }
+        /* 列后清除浮动 */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .row-in-div {
+            float: none;
+            height: 80px;
+        }
+        /*输入框样式*/
+        .margin{
+            margin: 6px;
+            width: 70%;
+            height:35px;
+        }
+        .button1{
+            margin: 6px;
+            width: 70%;
+            height:38px;
+            background-color: #3c80ce;
+            color: white;
+            border: 2px solid #e7e7e7;
+        }
+        .blank1{
+            margin-left:16%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Worker Salary System</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="base.html">首页</a></li>
+                    <li><a href="submit.html">提交情况</a></li>
+                    <li><a href="salary.html">薪资</a></li>
+                    <li><a href="changepasswd.html">修改密码</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>欢迎您，${currentUser.name}！</a></li>
+                    <li><a href="#">【退出登录】</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+    <div class="row">
+        <div class="column">&nbsp</div>
+        <div class="column">
+            <div class="row-in-div">&nbsp</div>
+            <div class="blank1">
+            <h2><strong>提交今日表单</strong></h2><br>
+            </div>
+            <form action="#">
+                <b>日期</b><br><input type="date" name="aday" class="margin"><br><br>
+                <b>货号</b><br><select class="margin" id="productSelector">
+                <option>      500C</option>
+                <option>6177</option>
+                <option>458</option>
+                <option>3683</option>
+                </select>
+                <br><br>
+                <b>数量</b><br><input type="text" class="margin" id="amount"><br><br>
+                <b>总金额: </b>15 (单价) * 20 (数量) = <span style="color: red" id="totalPrice">666</span>
+                <br><br>
+                    <button type="submit" class="button1">提交</button>
+            </form>
+        </div>
+        btn btn-primary
+    </div>
+
+
+
+    <!--扒下来的代码，但是样式不统一 <div class="container">
+        <h5><b>当前位置</b>：课程管理 > 添加课程</h5>
+        <hr>
+        <div class="courceadd">
+          <form  action="../courceadd" method="post">
+            <div>
+              <label>课程名称</label>
+              <input type="text" name="cource_name "/>
+            </div>
+            <div>
+              <label id="credit">学&nbsp;分</label>&nbsp;
+              <input type="text" placeholder="如：1.5" name="credit"/>
+            </div>
+            <div>
+              <label>任课教师</label>
+              <input type="text" name="teacher"/>
+            </div>
+            <div>
+              <label>上课时间</label>
+              <input type="text" placeholder="如：周三7,8节；周五3,4节；{10-15周}" name="shooltime"/>
+            </div>
+            <div>
+              <label>上课地点</label>
+              <input type="text" placeholder="如：5#305" name="classroom"/>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">添加</button>
+            <button type="reset" class="btn btn-warning">重置</button>
+          </form>
+        </div>
+      </div> -->
+
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                Copyright &copy Worker Salary System.
+            </p>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+</body>
+</html>

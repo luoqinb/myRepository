@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>员工信息</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        var index = 1;
+        var p1 = {
+            "id": index,
+            "emp_id": 21,
+            "name": "小青",
+            "sex": "女",
+            "condition": "在职",
+        };
+        index++;
+        var p2 = {
+            "id": index,
+            "emp_id": 83,
+            "name": "小红",
+            "sex": "女",
+            "condition": "在职",
+        };
+        index++;
+        var p = new Array();//var p = [];
+        p.push(p1);
+        p.push(p2);
+
+        /**显示人员信息**/
+        function showPerson() {
+            //显示表格
+            var table1 = document.getElementById("table1");
+            table1.style = "margin: 1.25rem;";
+            var str = "<tr> <th>序号</th><th>工号</th><th>姓名</th><th>性别</th><th>状态</th><th>操作</th>  </tr>";
+            for (var i = 0; i < p.length; i++) {
+                var a = p[i];
+                str += "<tr> <td>" + a.id + "</td><td>" + a.emp_id + "</td><td>" + a.name + "</td><td>" + a.sex + "</td><td>" + a.condition + "</td><td><button type='button' class='btn btn-success' onclick='showUpdatePerson(" + a.id + ")'>更新</button> &nbsp;&nbsp;   <button type='button' class='btn btn-danger' onclick='deletePerson(" + a.id + ")'>解雇</button>  </td> </tr>";
+            }
+            table1.innerHTML = str;
+        }
+
+        // function showFenYe() {
+        //     var div4 = document.getElementById("div4");
+        //     div4.style = "display: none;";
+        // }
+
+        /**显示新增人员信息**/
+        function showAddPerson() {
+            //隐藏更新人员界面
+            var div3 = document.getElementById("div3");
+            div3.style = "display: none;";
+            var div2 = document.getElementById("div2");
+            div2.style = "margin: 2.25rem;";
+        }
+
+        /**新增人员信息**/
+        function addPerson() {
+            var field2 = document.getElementById("field2");
+            var a = {};//var a = new Array();
+            // var a = p[index-1];
+            a.id = index;
+            a.emp_id = document.getElementById("emp_id").value;
+            a.name = document.getElementById("name").value;
+            a.sex = document.getElementById("sex").value;
+            a.condition = document.getElementById("condition").value;
+            index++;
+            //数组添加表单的值
+            p.push(a);
+            //添加之后重新查询表单
+            showPerson();
+        }
+
+        /**取消按钮，隐藏表单**/
+        function cancel() {
+            //隐藏新增人员信息界面
+            var div2 = document.getElementById("div2");
+            div2.style = "display: none;";
+            //隐藏更新人员信息界面
+            var div3 = document.getElementById("div3");
+            div3.style = "display: none;";
+        }
+
+        /**根据id删除人员信息**/
+        function deletePerson(id) {
+            var flag = confirm("确定解雇？");
+            if (flag) {
+                for (var i = 0; i < p.length; i++) {
+                    var a = p[i];
+                    if (a.id == id) {
+                        p.splice(i, 1);//从第i个位置开始删除一个元素
+                    }
+                }
+            }
+            //删除完毕重新加载表单
+            showPerson();
+        }
+
+        /**根据id修改人员信息**/
+        function showUpdatePerson(id) {
+            //隐藏添加人员界面
+            var div2 = document.getElementById("div2");
+            div2.style = "display: none;";
+            //显示更新人员界面
+            var div3 = document.getElementById("div3");
+            div3.style = "margin: 2.25rem";
+            //根据id遍历数组得到要修改的值,然后用document对象进行修改
+            for (var i = 0; i < p.length; i++) {
+                var a = p[i];
+                if (a.id == id) {
+                    document.getElementById("uemp_id").value = a.emp_id;
+                    document.getElementById("uname").value = a.name;
+                    document.getElementById("usex").value = a.sex;
+                    document.getElementById("uconditon").value = a.condition;
+                    document.getElementById("uid").value = a.id;
+                }
+            }
+        }
+
+        function updatePerson() {
+            var id = document.getElementById("uid").value;
+            //再根据id把表单中的value值存入对于的p[]i数组中
+            for (var i = 0; i < p.length; i++) {
+                var a = p[i];
+                if (a.id == id) {
+                    p[i].emp_id = document.getElementById("uemp_id").value;
+                    p[i].name = document.getElementById("uname").value;
+                    p[i].sex = document.getElementById("usex").value;
+                    p[i].condition = document.getElementById("ucondition").value;
+                }
+            }
+            //重新调用表单刷新
+            showPerson();
+            //隐藏添加人员界面
+            var div3 = document.getElementById("div3");
+            div3.style = "display: none;";
+        }
+    </script>
+</head>
+<body>
+<div id="" style="margin: 1.25rem;">
+    <button type="button" class="btn btn-info" onclick="showPerson()"><span class="glyphicon glyphicon-qrcode"></span>
+        显示人员信息
+    </button>
+    <button type="button" class="btn btn-info" onclick="showAddPerson()"><span
+            class="glyphicon glyphicon-sound-stereo"></span> 新增人员信息
+    </button>
+</div>
+
+<!-- 表格信息 -->
+<div id="div1" style="margin: 1.25rem;">
+    <table border="1" class="table table-hover" style="display: none;" id="table1" cellspacing="2" cellpadding="2">
+    </table>
+<!--    <div id="div4" class="page-icon">-->
+<!--        <span class="page-disabled"><i></i>上一页</span>-->
+<!--        <span class="page-current">1</span>-->
+<!--        <a href="#">2</a>-->
+<!--        <a href="#">3</a>-->
+<!--        <a href="#">4</a>-->
+<!--        <a href="#">5</a>-->
+<!--        <a href="#">6</a>-->
+<!--        <a href="#">7</a>-->
+<!--        <a href="#">8</a>-->
+<!--        <a href="#">9</a>-->
+<!--        <a class="page-next" href="#">下一页<i></i></a>-->
+<!--    </div>-->
+</div>
+
+<!-- 新增人员信息 -->
+<div id="div2" style="display: none;margin: 1.25rem;">
+    <fieldset id="field2">
+        <legend>新增人员信息</legend>
+        <table class="table table-hover">
+            <input type="hidden" class="form-control" name="id" id="uid"/>
+            <tr>
+                <td>姓名:</td>
+                <td><input type="text" class="form-control" name="name" id="name" value="小紫"/></td>
+            </tr>
+            
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <select id="sex" name="sex" class="form-control"  required="required">
+                        <option value ="">--请选择--</option>
+                        <option value ="男" >男</option>
+                        <option value ="女" selected="selected">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" class="form-control" name="username" id="username"/></td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="number" class="form-control" name="password" id="password"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="addPerson()">确定</button>
+                    <button type="button" class="btn btn-warning" onclick="cancel()">取消</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+<!-- 更新人员信息 -->
+<div id="div3" style="display: none;margin: 1.25rem;" name="div3">
+    <fieldset id="field3">
+        <legend>更新人员信息</legend>
+        <table class="table table-hover">
+            <tr>
+                <td>工号：</td>
+                <td><input type="number" class="form-control" name="emp_id" id="emp_id"/></td>
+            </tr>
+            <tr>
+                <td>姓名：</td>
+                <td><input type="text" class="form-control" name="name" id="name"/></td>
+            </tr>
+
+            <tr>
+                <td>性别：</td>
+                <td>
+                <input type="text" class="form-control"  name="sex" id="sex" /></td>
+            </tr>
+            <tr>
+                <td>状态：</td>
+                <td>
+                    <input type="text" class="form-control"  name="condition" id="condition" /></td>
+
+                </td>
+            </tr>
+
+<!--            <tr>-->
+<!--                <td>性别：</td>-->
+<!--                <td>-->
+<!--                    <select class="form-control" name="sex" id="sex" required="required">-->
+<!--                        <option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+<!--                        <option value="女">女</option>-->
+<!--                        <option value="男">男</option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>状态：</td>-->
+<!--                <td>-->
+<!--                    <select class="form-control" name="condition" id="condition" required="required">-->
+<!--                        <option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+<!--                        <option value="在职">在职</option>-->
+<!--                        <option value="离职">离职</option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+
+
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-success" onclick="updatePerson()" style="float:left;">确定
+                    </button>&nbsp;
+                    <button type="button" class="btn btn-warning" onclick="cancel()"
+                            style="float:right;margin-left: 5px;">取消
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+</body>
+</html>

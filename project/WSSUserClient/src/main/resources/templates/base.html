@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>员工信息系统</title>
+    <link rel="stylesheet" th:href="@{/static/base/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/index.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/student.css}">
+    <style>
+        .column {
+            float: left;
+            width: 37%;
+        }
+
+        /* 列后清除浮动 */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .row-in-div {
+            float: none;
+            height: 80px;
+        }
+
+        /*输入框样式*/
+        .margin {
+            margin: 6px;
+            width: 70%;
+            height: 35px;
+        }
+
+        .button1 {
+            margin: 6px;
+            width: 70%;
+            height: 38px;
+            background-color: #3c80ce;
+            color: white;
+            border: 2px solid #e7e7e7;
+        }
+
+        .blank1 {
+            margin-left: 16%;
+        }
+    </style>
+    <script th:src="@{/static/base/js/jquery.min.js}"></script>
+    <script th:src="@{/static/base/js/bootstrap.min.js}"></script>
+    <script>
+        function calcTotalPrice(price, amount) {
+            var total = price * amount;
+            return total.toFixed(2);
+        }
+
+        $(document).ready(function () {
+            Date.prototype.toDateInputValue = (function () {
+                var local = new Date(this);
+                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+                return local.toJSON().slice(0, 10);
+            });
+
+            $('#datePicker').val(new Date().toDateInputValue());
+
+            var pid = null;
+            var price = document.getElementById("price");
+            var totalPrice = document.getElementById("totalPrice");
+            var amount = document.getElementById("productAmount");
+            var date = new Date($('#datePicker').val());
+            console.log("Origin date: " + date);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            var dateTime = ([year, month, day].join('-'));
+            console.log("dateTime onload: " + dateTime)
+
+            $('#datePicker').change(function () {
+                date = new Date($('#datePicker').val());
+                day = date.getDate();
+                month = date.getMonth() + 1;
+                year = date.getFullYear();
+                dateTime = ([year, month, day].join('-'));
+                console.log("dateTime onchange: " + dateTime);
+            })
+
+            $('#productSelector').change(function () {
+                var selectedPid = $('#productSelector').find('option:selected').text();
+                console.log(selectedPid);
+                $.ajax({
+                    type: 'get',
+                    url: 'api/getProductByPid/' + selectedPid,
+                    success: function (product) {
+                        pid = product.pid;
+                        price = product.price;
+                        document.getElementById('price').innerHTML = price;
+                        totalPrice = calcTotalPrice(price, amount);
+                        document.getElementById('totalPrice').innerHTML = totalPrice;
+                        console.log("Ajax done. Price: " + price + ", Amount: " + amount + ", Total price: " + totalPrice);
+                    },
+                    error: function (error) {
+                        console.log("Error: " + error);
+                    }
+                })
+            })
+            $('#inputAmount').keyup(function () {
+                amount = $(this).val();
+                document.getElementById('productAmount').innerHTML = amount;
+                totalPrice = calcTotalPrice(price, amount);
+                document.getElementById('totalPrice').innerHTML = totalPrice;
+                console.log("Amount changed. Price: " + price + ", Amount: " + amount + ", Total price: " + totalPrice);
+            })
+
+            $('#submitButton').click(function () {
+                console.log("On Submit: \ntotalPrice: " + totalPrice + ", amount: " + amount + ", date: " + dateTime + ", product id: " + pid);
+                if (totalPrice === 0 || isNaN(totalPrice) || amount === 0 || isNaN(amount) || amount === "") {
+                    alert("请选择货号并输入正确的数量。")
+                } else {
+                    var isConfirm = confirm("请确认提交的信息：\n\n日期：" + dateTime + "\n货号：" + pid + "\n数量：" + amount + "\n记录总金额：" + totalPrice + "\n\n确定要提交吗？");
+                    if (isConfirm) {
+                        $.ajax({
+                            url: 'api/submitRecord',
+                            type: 'post',
+                            data: {pid: pid, totalPrice: totalPrice, dateTime: dateTime, amount: amount},
+                            success: function (data) {
+                                console.log("dateTime on submit: " + dateTime);
+                                if (data == "success") {
+                                    alert("今日工作情况已提交，请稍后查看并确认提交情况。");
+                                    window.location.replace("/home");
+                                } else if (data === "denied") {
+                                    alert("你无权进行此操作。");
+                                } else {
+                                    alert("出现了一些问题，请重试。");
+                                }
+                            },
+                            error: function (data) {
+                                alert("出现了一些问题，请重试。");
+                            }
+                        });
+                    }
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Worker Salary System</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/home}" href="base.html">首页</a></li>
+                <li><a th:href="@{/submitStatus}" href="submit.html">提交情况</a></li>
+                <li><a th:href="@{/salary}" href="salary.html">薪资</a></li>
+                <li><a th:href="@{/changePassword}" href="changepasswd.html">修改密码</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您，<span th:text="${session.loginUser.username}"></span>！</a></li>
+                <li><a href="/logout">【退出登录】</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div>
+    <div class="column">&nbsp</div>
+    <div class="column">
+        <div class="row-in-div">&nbsp</div>
+        <div class="blank1">
+            <h2><strong>提交今日表单</strong></h2><br>
+        </div>
+        <form action="#">
+            <b>日期</b><br><input type="date" name="aday" class="margin" id="datePicker"><br><br>
+            <b>货号</b><br>
+            <label for="productSelector">
+                <select class="margin" id="productSelector" style="width: max-content">
+                    <option selected="selected" disabled> ----</option>
+                    <option th:each="product: ${products}" th:text="${product.pid}" name="selectedProduct"></option>
+                </select></label>
+            <br><br>
+            <b>数量</b><br><input type="text" class="margin" id="inputAmount"
+                                onkeyup="value=value.replace(/^0{1,}/g,'').replace(/[^\d]/g,'')"><br><br>
+            <b>总金额: </b><span id="price">0</span> (单价) * <span id="productAmount">0</span> (数量) = <span
+                style="color: red"
+                id="totalPrice">0</span>
+            <br><br>
+            <button type="button" class="button1" id="submitButton">提交</button>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+            Copyright &copy Worker Salary System.
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

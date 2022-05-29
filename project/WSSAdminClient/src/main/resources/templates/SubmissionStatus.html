@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>提交情况</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet" th:href="@{/static/bootstrap.min.css}">
+    <script src="jquery-1.8.3.js" th:src="@{/static/jquery-1.8.3.js}" type="text/javascript"></script>
+    <script type="text/javascript">
+        /**显示人员信息**/
+        function showBeReviewedPerson() {
+            document.getElementById("div1").style.display = "block";
+            document.getElementById("div2").style.display = "none";
+            document.getElementById("div3").style.display = "none";
+        }
+
+        function showPassedPerson() {
+            document.getElementById("div2").style.display = "block";
+            document.getElementById("div1").style.display = "none";
+            document.getElementById("div3").style.display = "none";
+        }
+
+        function showBackPerson() {
+            document.getElementById("div3").style.display = "block";
+            document.getElementById("div1").style.display = "none";
+            document.getElementById("div2").style.display = "none";
+        }
+    </script>
+    <script>
+        function accept(id) {
+            console.log(id);
+            var isConfirm = window.confirm("确定要通过吗？");
+            if (isConfirm) {
+                $.ajax({
+                    url: '/api/acceptRecord/' + id,
+                    type: 'put',
+                    success: function (data) {
+                        if (data === "success") {
+                            window.alert("操作成功。");
+                            window.location.reload();
+                        } else alert("操作失败，请重试。");
+                    },
+                    error: function (data) {
+                        alert("操作失败，请重试。");
+                    }
+                });
+            }
+        }
+
+        function decline(id) {
+            console.log(id);
+            var isConfirm = window.confirm("确定要拒绝吗？");
+            if (isConfirm) {
+                $.ajax({
+                    url: '/api/declineRecord/' + id,
+                    type: 'put',
+                    success: function (data) {
+                        if (data === "success") {
+                            window.alert("操作成功。");
+                            window.location.reload();
+                        } else alert("操作失败，请重试。");
+                    },
+                    error: function (data) {
+                        alert("操作失败，请重试。");
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="" style="margin: 1.25rem;">
+    <button type="button" class="btn btn-info" onclick="showBeReviewedPerson()"><span
+            class="glyphicon glyphicon-qrcode"></span> 待审核
+    </button>
+    <button type="button" class="btn btn-info" onclick="showPassedPerson()"><span
+            class="glyphicon glyphicon-sound-stereo"></span>已通过
+    </button>
+    <button type="button" class="btn btn-info" onclick="showBackPerson()"><span
+            class="glyphicon glyphicon-sound-stereo"></span>已打回
+    </button>
+</div>
+
+<!-- 表格信息 -->
+<div class="container">
+    <div class="container-fluid" id="div1" style="margin: 1.25rem;">
+        <center><h1 th:if="${#lists.isEmpty(submittedRecords)}">没有待审核的记录。</h1></center>
+        <table class="table table-bordered" style="width: max-content;" id="table1"
+               th:if="${not #lists.isEmpty(submittedRecords)}"
+               cellspacing="2"
+               cellpadding="2"
+        >
+            <thead style="width: max-content">
+            <tr>
+                <th>序号</th>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>货号</th>
+                <th>数量</th>
+                <th>日期</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody style="width:100%">
+            <tr th:each="record: ${submittedRecords}">
+                <th th:text="${record.getId()}"></th>
+                <th th:text="${record.getWid()}">001</th>
+                <th th:text="${record.getWname()}">Hello</th>
+                <th th:text="${record.getProductId()}">5C00</th>
+                <th th:text="${record.getAmount()}">100</th>
+                <th th:text="${record.getDateTime()}">2001/07/17</th>
+                <th><img alt="submitted" th:src="@{/static/base/img/submitted.svg}" height="15px" width="15px" />待审核</th>
+                <th>
+                    <button type="button" class="btn btn-success" id="acceptButton"
+                            th:attr="onclick=|accept('${record.getId()}')|">通过
+                    </button>
+                    <button type="button" class="btn btn-danger" id="refuseButton"
+                            th:attr="onclick=|decline('${record.getId()}')|">打回
+                    </button>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container-fluid" id="div2" style="margin: 1.25rem; display: none">
+        <center><h1 th:if="${#lists.isEmpty(acceptedRecords)}" style="color: red">未找到数据，请提交后重试。</h1></center>
+        <table class="table table-bordered" style="width: max-content;" id="table2"
+               cellspacing="2"
+               cellpadding="2"
+               th:if="${not #lists.isEmpty(acceptedRecords)}"
+        >
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>货号</th>
+                <th>数量</th>
+                <th>日期</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record: ${acceptedRecords}">
+                <th th:text="${record.getId()}"></th>
+                <th th:text="${record.getWid()}">001</th>
+                <th th:text="${record.getWname()}">Hello</th>
+                <th th:text="${record.getProductId()}">5C00</th>
+                <th th:text="${record.getAmount()}">100</th>
+                <th th:text="${record.getDateTime()}">2001/07/17</th>
+                <th><img alt="accepted" th:src="@{/static/base/img/accept.svg}" height="15px" width="15px" />已通过</th>
+            </tr>
+            <tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container-fluid" id="div3" style="margin: 1.25rem; display: none">
+        <center><h1 th:if="${#lists.isEmpty(refusedRecords)}" style="color: red">未找到数据，请提交后重试。</h1></center>
+        <table class="table table-bordered" style=" width: max-content;" id="table3"
+               cellspacing="2"
+               cellpadding="2"
+               th:if="${not #lists.isEmpty(refusedRecords)}"
+        >
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>货号</th>
+                <th>数量</th>
+                <th>日期</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record: ${refusedRecords}">
+                <th th:text="${record.getId()}"></th>
+                <th th:text="${record.getWid()}">001</th>
+                <th th:text="${record.getWname()}">Hello</th>
+                <th th:text="${record.getProductId()}">5C00</th>
+                <th th:text="${record.getAmount()}">100</th>
+                <th th:text="${record.getDateTime()}">2001/07/17</th>
+                <th><img alt="refused" th:src="@{/static/base/img/refuse.svg}" height="15px" width="15px" />被打回</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

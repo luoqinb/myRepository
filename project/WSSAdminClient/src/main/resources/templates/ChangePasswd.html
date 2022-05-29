@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>员工信息系统</title>
+    <link rel="stylesheet" th:href="@{/static/base/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/index.css}">
+    <link rel="stylesheet" th:href="@{/static/base/css/student.css}">
+
+    <style>
+        .column {
+            float: left;
+            width: 28.33%;
+        }
+
+        /* 列后清除浮动 */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .row-in-div {
+            float: none;
+            height: 10%;
+        }
+    </style>
+</head>
+<body>
+
+
+<!--内容-->
+<br><br><br><br>
+<div class="row">
+    <div class="column">&nbsp</div>
+    <div class="column">
+        <div class="row-in-div">&nbsp</div>
+        <div class="half" id="paw">
+            <div class="contents order-2 order-md-1">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-6">
+                            <div class="form-block">
+                                <div class="text-center mb-5">
+                                    <br>
+                                    <h2><strong>修改密码</strong></h2>
+                                </div>
+                                <form th:action="@{/api/changePass}" method="post" target="_parent">
+
+                                    <div class="form-group first">
+                                        <label for="cur_password"><b>请输入当前密码</b></label>
+                                        <input class="form-control" id="cur_password" name="auth_password"
+                                               placeholder="原密码"
+                                               required type="password">
+                                    </div>
+
+                                    <div class="form-group first">
+                                        <label for="password"><b>请输入新密码</b></label>
+                                        <input class="form-control" id="password" name="auth_new_password"
+                                               placeholder="新密码"
+                                               required type="password">
+                                    </div>
+
+                                    <div class="form-group last mb-3">
+                                        <label for="confirm_password"><b>请确认密码</b></label>
+                                        <input class="form-control" id="confirm_password"
+                                               name="auth_new_password_confirm"
+                                               placeholder="确认新密码"
+                                               required type="password">
+                                    </div>
+                                    <br>
+                                    <h2 th:if="${param.oldPassWrong}">密码错误。</h2>
+                                    <div class="btn-next">
+                                        <center>
+                                            <div>
+                                                <button class="btn btn-info" type="submit">确认修改</button>
+
+                                            </div>
+                                        </center>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/static/base/js/script.js}"></script>
+<script th:src="@{/static/base/js/jquery.min.js}"></script>
+<script th:src="@{/static/base/js/bootstrap.min.js}"></script>
+</body>
+</html>

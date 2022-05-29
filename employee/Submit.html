@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Worker system</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.14.1/lib/index.js"></script>
+
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+            padding: 10px;
+            background: #f1f1f1;
+        }
+        .nav-image {
+            width: 35px;
+            height: 35px;
+
+        }
+
+        /* 头部标题 */
+        .header {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        /* 导航条 */
+        .topnav {
+            overflow: hidden;
+
+        }
+
+        /* 导航条链接 */
+        .topnav a {
+            float: left;
+            display: block;
+            color: #181717;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            margin-right: 2%;
+        }
+
+        /* 创建两列 */
+        /* Left column */
+        .leftcolumn {
+            float: left;
+            width: 23%;
+            margin-top: 0.8%;
+        }
+
+        /* 右侧栏 */
+        .rightcolumn {
+            float: left;
+            width: 77%;
+            margin-top: 3%;
+            padding-left: 0px;
+        }
+
+        /* 链接颜色修改 */
+        .topnav a:hover {
+            transition: ease-in-out 0.25s;
+            background-color: #1c74df;
+            color: #ffffff;
+        }
+
+        /*页面布局*/
+        /* 创建三个相等的列 */
+        .column {
+            margin-left: 20%;
+            width: 60%;
+        }
+
+    </style>
+
+    <script>
+        function() {
+            var amount = $("#id").val();
+        }
+    </script>
+</head>
+<body>
+<div class="leftcolumn">
+    <div >
+    <h1>&nbsp <img src="user.svg" class="nav-image" >&nbsp Hi，name！</h1>
+        <hr>
+    </div>
+</div>
+<div class="rightcolumn">
+<div class="topnav">
+    <a href="#" style="float:right">登出</a>
+    <a href="changePass.html" style="float:right">修改密码</a>
+    <a href="Salary.html" style="float:right">薪资</a>
+    <a href="Submit.html" style="float:right">提交情况</a>
+    <a href="Homepage.html" style="float:right">首页</a>
+</div>
+    <hr>
+</div>
+<br><br><br><br><br>
+
+<br>
+<div class="row1">
+
+
+    <div class="column">
+        <br><br>
+        <div id="app">
+            <template>
+                <el-table
+                        :data="tableData"
+                        style="width: 100%"
+                        height="500">
+                    <el-table-column
+                            fixed
+                            prop="date"
+                            label="日期"
+                            width="150">
+                    </el-table-column>
+                    <el-table-column
+                            prop="productNum"
+                            label="货号"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="Num"
+                            label="数量"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="submitTime"
+                            label="提交时间"
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            prop="submitStatus"
+                            label="提交状态"
+                            width="300">
+                    </el-table-column>
+
+            </template>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+
+<br>
+</body>
+
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+
+<script>
+    var Main = {
+        data() {
+            return {
+                tableData: [{
+                    date: '2016-05-03',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-02',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-04',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-01',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-08',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-06',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-07',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-07',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }, {
+                    date: '2016-05-07',
+                    productNum: '王小虎',
+                    Num: '上海',
+                    submitTime: '普陀区',
+                    submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                }
+                    , {
+                        date: '2016-05-07',
+                        productNum: '王小虎',
+                        Num: '上海',
+                        submitTime: '普陀区',
+                        submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                    }
+                    , {
+                        date: '2016-05-07',
+                        productNum: '王小虎',
+                        Num: '上海',
+                        submitTime: '普陀区',
+                        submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                    }
+                    , {
+                        date: '2016-05-07',
+                        productNum: '王小虎',
+                        Num: '上海',
+                        submitTime: '普陀区',
+                        submitStatus: '上海市普陀区金沙江路 1518 弄',
+
+                    }
+
+
+                ]
+            }
+        }
+    }
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+</script>
+</html>

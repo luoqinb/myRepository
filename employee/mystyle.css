@@ -1,0 +1,88 @@
+
+
+/*homepage.html*/
+a{
+	display:block;
+	text-align:center;
+	color:#000000;
+	text-decoration:none;
+}
+
+  .nav-image {
+		width: 25px;  }
+	/*页面布局*/
+	/* 创建三个相等的列 */
+	.column {
+		float: left;
+		width: 33.33%;
+	}
+	
+	/* 列后清除浮动 */
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	/*块中行*/
+	.row-in-div {
+		float: none;
+		height: 150px;
+	}
+	/*输入框样式*/
+	.margin{
+		margin: 6px;
+		width: 500px;
+		height:35px;
+	}
+	/*新导航栏*/
+	  /* 头部标题 */
+	  .header {
+		font-size: 25px;
+		text-align: center;
+	}
+	
+
+	 /* 创建两列 */
+        /* Left column */
+        .leftcolumn {
+            float: left;
+            width: 23%;
+            margin-top: 1%;
+        }
+
+        /* 右侧栏 */
+        .rightcolumn {
+            float: left;
+            width: 77%;
+            margin-top: 3%;
+            padding-left: 0px;
+        }
+
+	/* 导航条 */
+	.topnav {
+		overflow: hidden;
+
+	}
+
+	/* 导航条链接 */
+	.topnav a {
+		float: left;
+		display: block;
+		color: #181717;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		margin-right: 2%;
+	}
+
+	/* 链接颜色修改 */
+	.topnav a:hover {
+		transition: ease-in-out 0.25s;
+
+		background-color: #1c74df;
+		color: #ffffff;
+	}
+
+
+
+	

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>提交情况</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript">
+
+        /**显示人员信息**/
+        function showBeReviewedPerson(){
+            document.getElementById("table1").style.display="block";
+            document.getElementById("table2").style.display="none";
+            document.getElementById("table3").style.display="none";
+        }
+
+        function showPassedPerson(){
+            document.getElementById("table2").style.display="block";
+            document.getElementById("table1").style.display="none";
+            document.getElementById("table3").style.display="none";
+        }
+        function showBackPerson(){
+            document.getElementById("table3").style.display="block";
+            document.getElementById("table1").style.display="none";
+            document.getElementById("table2").style.display="none";
+        }
+
+
+    </script>
+</head>
+
+<body>
+<div id="" style="margin: 1.25rem;">
+    <button type="button" class="btn btn-info" onclick="showBeReviewedPerson()"><span class="glyphicon glyphicon-qrcode"></span> 待审核</button>
+    <button type="button" class="btn btn-info" onclick="showPassedPerson()"><span class="glyphicon glyphicon-sound-stereo"></span>已通过</button>
+    <button type="button" class="btn btn-info" onclick="showBackPerson()"><span class="glyphicon glyphicon-sound-stereo"></span>已打回</button>
+</div>
+
+<!-- 表格信息 -->
+<div class="container">
+<div class="container-fluid" id="div1"  style="margin: 1.25rem;">
+    <table class="table table-bordered" style="width: max-content;display: none;" id="table1"
+           cellspacing="2"
+           cellpadding="2"
+    >
+        <thead style="width: max-content">
+        <tr>
+            <th>序号</th>
+            <th>工号</th>
+            <th>姓名</th>
+            <th>货号</th>
+            <th>数量</th>
+            <th>日期</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody style="width:100%">
+        <tr>
+            <th>1</th>
+            <th>001</th>
+            <th>Hello</th>
+            <th>5C00</th>
+            <th>100</th>
+            <th>2001/07/17</th>
+            <th>待审核</th>
+            <th>
+                <button type="button" class="btn btn-success">通过</button>
+                <button type="button" class="btn btn-danger">打回</button>
+            </th></tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<div class="container">
+<div class="container-fluid" id="div2" style="margin: 1.25rem;">
+    <table class="table table-bordered" style="width: max-content;display: none" id="table2"
+           cellspacing="2"
+           cellpadding="2"
+    >
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>工号</th>
+            <th>姓名</th>
+            <th>货号</th>
+            <th>数量</th>
+            <th>日期</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>2</th>
+            <th>002</th>
+            <th>Allen</th>
+            <th>5C00</th>
+            <th>1000</th>
+            <th>2011/07/17</th>
+            <th>待审核</th>
+        </tr>
+        <tbody>
+    </table>
+</div>
+</div>
+
+<div class="container">
+<div class="container-fluid" id="div3"  style="margin: 1.25rem;">
+    <table class="table table-bordered" style=" width: max-content;display: none;" id="table3"
+           cellspacing="2"
+           cellpadding="2"
+    >
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>工号</th>
+            <th>姓名</th>
+            <th>货号</th>
+            <th>数量</th>
+            <th>日期</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>3</th>
+            <th>003</th>
+            <th>Cherry</th>
+            <th>8C00</th>
+            <th>10</th>
+            <th>2022/07/17</th>
+            <th>被打回</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+</div>
+</body>
+</html>

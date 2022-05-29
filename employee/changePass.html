@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css">
+
+    <title>Change Password</title>
+
+<style>
+.nav-image {
+            width: 35px;
+            height: 35px;
+
+        }
+
+        .nav{
+            width: 100%;
+           
+             top: 0px;
+            height: 100px;
+            
+        }
+        
+
+
+
+
+.leftcolumn {
+            float: left;
+            width: 30%;
+            margin-top: 3%;
+            height: 100px;
+        }
+
+        /* 右侧栏 */
+        .rightcolumn {
+            float: left;
+            width: 70%;
+            margin-top: 3%;
+            padding-left: 0px;
+            height: 100px;
+        }
+
+        /* 导航条链接 */
+        .topnav a {
+            float: left;
+            display: block;
+            color: #181717;
+            text-align: center;
+            padding: 16px 16px;
+            text-decoration: none;
+            margin-right: 2%;
+        }
+          /* 链接颜色修改 */
+          .topnav a:hover {
+            transition: ease-in-out 0.25s;
+            background-color: #1c74df;
+            color: #ffffff;
+        }
+
+
+        
+
+</style>
+
+</head>
+<body>
+
+    <div class="navbar navbar-fixed-top nav">
+        <div class="leftcolumn">
+            <div >
+            <h1>&nbsp <img src="user.svg" class="nav-image" >&nbsp Hi，name！</h1>
+            </div>
+        </div>
+        <div class="rightcolumn">
+        <div class="topnav">
+            <a href="#" style="float:right">登出</a>
+            <a href="changePass.html" style="float:right">修改密码</a>
+            <a href="Salary.html" style="float:right">薪资</a>
+            <a href="Submit.html" style="float:right">提交情况</a>
+            <a href="Homepage.html" style="float:right">首页</a>
+        </div>
+        </div>
+    
+    </div>
+    <hr>
+ 
+
+
+<div class="half" id="paw">
+    <div class="contents order-2 order-md-1">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-6">
+                    <div class="form-block">
+                        <div class="text-center mb-5">
+                            <br><h2><strong>修改密码</strong></h2>
+                        </div>
+                        <form action="submitChangePassword" method="post">
+
+                            <div class="form-group first">
+                                <label for="password"><b>请输入当前密码</b></label>
+                                <input type="password" class="form-control" name="auth_password" placeholder="Old Password"
+                                       id="cur_password" required>
+                            </div>
+
+                            <div class="form-group first">
+                                <label for="password"><b>请输入新密码</b></label>
+                                <input type="password" class="form-control" name="auth_new_password" placeholder="New Password"
+                                       id="password" required>
+                            </div>
+
+                            <div class="form-group last mb-3">
+                                <label for="confirm_password"><b>请确认密码</b></label>
+                                <input type="password" class="form-control" name="auth_new_password_confirm" placeholder="Confirm Password"
+                                       id="confirm_password" required>
+                            </div>
+                            <br>
+                            <h2></h2>
+                            <div class="btn-next">
+                                <div>
+                                    <button type="submit" class="btn-get-started scrollto">Next</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
